@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">polynomial</string>
+    <string name="a_factor">A</string>
+    <string name="b_factor">B</string>
+    <string name="c_factor">C</string>
+    <string name="button_text">Ax^2 + Bx + C</string>
 </resources>
