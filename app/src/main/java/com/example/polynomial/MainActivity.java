@@ -2,6 +2,7 @@ package com.example.polynomial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,14 +35,17 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button)
     void submit() {
+
+        Intent intent = new Intent(this, ChartActivity.class);
         int a = Integer.parseInt(a_factor.getText().toString());
         int b = Integer.parseInt(b_factor.getText().toString());
         int c = Integer.parseInt(c_factor.getText().toString());
 
+        intent.putExtra("a", a);
+        intent.putExtra("b", b);
+        intent.putExtra("c",c);
 
-
-
-
+        startActivity(intent);
     }
 
 }
