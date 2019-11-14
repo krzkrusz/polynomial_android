@@ -3,9 +3,12 @@ package com.example.polynomial;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -13,6 +16,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MAIN";
     @BindView(R.id.editText1)
     EditText a_factor;
 
@@ -25,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.button)
     Button button;
 
+    @BindView(R.id.textView5)
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +49,23 @@ public class MainActivity extends AppCompatActivity {
 
         intent.putExtra("a", a);
         intent.putExtra("b", b);
-        intent.putExtra("c",c);
+        intent.putExtra("c", c);
 
-        startActivity(intent);
+        PackageManager packageManager = MainActivity.this.getPackageManager();
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivityForResult(intent, 2);
+        } else {
+            Log.d(TAG, "Activity not handled for: " + intent.getData());
+        }
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2) {
+            String roots = data.getStringExtra("roots");
+            textView.setText("Roots: " + roots);
+        }
+    }
 }
